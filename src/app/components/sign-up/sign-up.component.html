@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row w-100 vh-100 justfy-content-center align-items-center">
+        <div class="auth-box">
+            <div *ngIf="!isConfirm">
+                <div class="header">
+                    <h2>Register</h2>
+                    <h2>Register your aoount with below information</h2>
+                </div>
+
+                <div class="form" [formGroup]="registerForm">
+                    <div>
+                        <div class="form-group col-5">
+                            <input type="text" formControlName="givenName" class="form-control"
+                                [ngClass]="{ 'is-invalid': f.givenName.touched && f.givenName.errors }"  placeholder="Given Name"/>
+                            <div *ngIf="f.givenName.touched && f.givenName.errors" class="invalid-feedback">
+                                <div *ngIf="f.givenName.errors.required">Given Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-5">
+                            <input type="text" formControlName="familyName" class="form-control"
+                                [ngClass]="{ 'is-invalid': f.familyName.touched && f.familyName.errors }"  placeholder="Family Name"/>
+                            <div *ngIf="f.familyName.touched && f.familyName.errors" class="invalid-feedback">
+                                <div *ngIf="f.familyName.errors.required">Last Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }"  placeholder="Email"/>
+                        <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group col">
+                            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+                                [ngClass]="{ 'is-invalid': f.password.touched && f.password.errors }" placeholder="Password"/>
+                            <div *ngIf="f.password.touched && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                            </div>
+                        </div>
+                        <input type="checkbox" name="showpassword" id="show-password" [checked]="showPassword" (change)="showPassword != showPassword">Show Password
+                    </div>
+                    <p>Alredy a member <a href="/sign-in">Sing In</a></p>
+
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1" (click)="onRegister()">Register</button>
+                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+                </div>
+            </div>
+
+            <div *ngIf="isConfirm">
+                <div [formGroup]="registerForm" class="header">
+                    <h2>Enter Code</h2>
+                    <h4 style="color:green;">A verification code has been sent to Email</h4>
+                    <div class="form">
+                        <input type="text" formControlName="code" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.givenName.errors }"  placeholder="Code"/>
+                            
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-1" (click)="onVerify()">Verify</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
